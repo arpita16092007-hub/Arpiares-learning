@@ -1,0 +1,105 @@
+
+/* 1. Basic page settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fb;
+    color: #263248;
+    line-height: 1.6;
+}
+
+/* 2. Website Header */
+header {
+    background-color: #172554;
+    color: white;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header h1 {
+    font-size: 26px;
+}
+
+/* 3. Navigation */
+nav {
+    display: flex;
+    gap: 24px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #93c5fd;
+}
+
+/* 4. Main Sections */
+main {
+    padding: 40px 8%;
+}
+
+section {
+    margin-bottom: 35px;
+    padding: 35px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+/* 5. Headings */
+h2 {
+    color: #1d4ed8;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #172554;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+/* 6. Paragraphs */
+p {
+    margin-bottom: 12px;
+}
+
+/* 7. Footer */
+footer {
+    background-color: #172554;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 8. Mobile-friendly layout */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    main {
+        padding: 20px 5%;
+    }
+
+    section {
+        padding: 22px;
+    }
+}
