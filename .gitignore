@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+
+# Python temporary files
+__pycache__/
+*.py[cod]
+
+# Python virtual environments
+.venv/
+venv/
+
+# Secret environment configuration
+.env
+
+# JavaScript dependencies
+node_modules/
+
+# Local SQLite database files
+*.db
