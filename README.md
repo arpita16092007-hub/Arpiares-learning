@@ -79,11 +79,32 @@ Through this project, I aim to learn and practise:
 - Git and GitHub.
 - Software testing and documentation.
 
+
 ## Development Status
 
-**Current phase:** Project planning and initial folder structure.
+**Current phase:** Frontend development – Initial homepage completed.
 
-Features listed above are planned and will be implemented and tested step by step.
+### Completed
+- Project repository created on GitHub.
+- Project features and architecture documented.
+- Initial HTML homepage created.
+- CSS styling added.
+- JavaScript interactions added.
+- Homepage manually opened and tested in the browser.
+
+### In Progress
+- Improving the homepage design.
+- Developing the frontend course interface.
+
+### Planned
+- Python backend using FastAPI.
+- SQLite database integration.
+- Student and instructor authentication.
+- Course and lesson management.
+- Learning progress tracking.
+- AI quiz and flashcard generation using free/open-source tools.
+
+Features listed under Planned are not yet implemented.
 
 ## Future Goal
 
