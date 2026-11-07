@@ -16,3 +16,11 @@ function changeHeading() {
 // 4. Display current year in the footer
 document.getElementById("current-year").textContent =
     new Date().getFullYear();
+
+// Explore Course Function
+function exploreCourse(courseName) {
+
+    window.location.href =
+        "course.html?course=" + encodeURIComponent(courseName);
+
+}

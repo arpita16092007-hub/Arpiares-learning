@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lessons | ARPIARES Learning</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>ARPIARES Learning</h1>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="course.html">Courses</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="lesson-section">
+
+            <h2 id="lesson-course-title">Course Name</h2>
+
+            
+<h3 id="lesson-title">Lesson 1</h3>
+
+<p id="lesson-content">
+    Your lesson content will appear here.
+</p>
+
+<p id="lesson-number"></p>
+
+<div class="lesson-navigation">
+
+    <button id="previous-button" onclick="previousLesson()">
+        Previous
+    </button>
+
+    <button id="next-button" onclick="nextLesson()">
+        Next
+    </button>
+
+</div>
+
+
+            <button onclick="markComplete()">
+                Mark as Complete
+            </button>
+
+            <p id="lesson-status"></p>
+
+<!-- Course Progress -->
+<div class="progress-section">
+
+    <h3>Course Progress</h3>
+
+    <div class="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+
+    <p id="progress-text">0% Completed</p>
+
+</div>
+
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            &copy; <span id="current-year"></span>
+            ARPIARES Learning. All rights reserved.
+        </p>
+    </footer>
+
+    <script src="js/lesson.js"></script>
+
+</body>
+</html>

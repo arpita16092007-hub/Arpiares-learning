@@ -82,6 +82,164 @@ footer {
     padding: 20px;
 }
 
+/* 9. Course Cards */
+
+.course-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.course-card {
+    background-color: #eff6ff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #dbeafe;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card h3 {
+    margin-top: 0;
+}
+
+.course-card button {
+    margin-top: 12px;
+    padding: 10px 16px;
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.course-card button:hover {
+    background-color: #172554;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* 10. Course Details Page */
+
+#course-details {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+#course-details h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+#course-details h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#course-details ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+#course-details li {
+    background-color: #eff6ff;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+#course-details button {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#course-details button:hover {
+    background-color: #172554;
+}
+
+
+/* Tablet screen */
+@media (max-width: 800px) {
+    .course-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 11. Lesson Navigation */
+
+.lesson-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.lesson-navigation button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* 12. Course Progress */
+
+.progress-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 14px;
+    background-color: #dbeafe;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: #2563eb;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+#progress-text {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1d4ed8;
+}
+
+/* 13. General Button Styling */
+
+button {
+    padding: 11px 20px;
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: #172554;
+}
+
+button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+
 /* 8. Mobile-friendly layout */
 @media (max-width: 600px) {
     header {
@@ -101,5 +259,8 @@ footer {
 
     section {
         padding: 22px;
+    }
+    .course-container {
+    grid-template-columns: 1fr;
     }
 }
