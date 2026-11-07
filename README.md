@@ -82,7 +82,39 @@ Through this project, I aim to learn and practise:
 
 ## Development Status
 
-**Current phase:** Frontend development – Initial homepage completed.
+
+## Development Status
+
+**Current phase:** Frontend development – Core learning interface completed.
+
+### Completed
+- Project repository created on GitHub.
+- Project features and architecture documented.
+- Initial HTML homepage created and tested.
+- CSS styling and JavaScript interactions added.
+- Course cards created for HTML, CSS and Python.
+- Individual course detail pages created.
+- Start Learning navigation implemented.
+- Lesson pages created for all three courses.
+- Previous and Next lesson navigation implemented.
+- Lesson completion feature implemented.
+- Course progress tracking implemented using browser local storage.
+- Frontend features manually tested in the browser.
+
+### Next Steps
+- Improve frontend design and usability.
+- Begin Python backend development using FastAPI.
+- Learn and integrate SQLite database.
+- Develop student and instructor registration and login.
+
+### Planned
+- Student course enrolment.
+- Instructor course management.
+- Quizzes and automatic grading.
+- AI quiz and flashcard generation using free/open-source tools.
+- Course completion certificates.
+
+Features listed under Next Steps and Planned are not yet implemented.
 
 ### Completed
 - Project repository created on GitHub.
