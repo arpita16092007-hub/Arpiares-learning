@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ARPIARES Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf7f2;--card:#fff;--ink:#1f1a14;--mut:#6b6458;--ac:#c2410c;--ac2:#0f766e;--ln:#e6dfd2;--ok:#dcfce7;--bad:#fee2e2;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130f;--card:#201d17;--ink:#f3efe6;--mut:#a79f90;--ac:#fb923c;--ac2:#2dd4bf;--ln:#38332a;--ok:#14532d;--bad:#7f1d1d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15130f;--card:#201d17;--ink:#f3efe6;--mut:#a79f90;--ac:#fb923c;--ac2:#2dd4bf;--ln:#38332a;--ok:#14532d;--bad:#7f1d1d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:.2em 0 .5em}
+h1{font-size:clamp(2rem,6vw,3.4rem)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;align-items:center;padding:.7rem 1.2rem}
+.logo{font-size:1.35rem;font-weight:700;cursor:pointer;margin:0;color:var(--ac)}
+.logo span{color:var(--ink)}
+nav{display:flex;gap:.3rem;flex-wrap:wrap;margin-left:auto;align-items:center}
+nav a{padding:.35rem .7rem;border-radius:8px;cursor:pointer;color:var(--mut);font-weight:500}
+nav a:hover,nav a.on{background:var(--card);color:var(--ink)}
+main{max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 3rem}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:1.1rem 1.2rem;margin:0 0 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:.6rem 1.1rem;font:600 .95rem Inter,sans-serif;cursor:pointer;margin:.2rem .3rem .2rem 0}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--ln)}
+.btn.g{background:var(--ac2)}
+.btn:disabled{opacity:.5}
+input,select,textarea{width:100%;padding:.6rem .7rem;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;margin:.25rem 0 .8rem}
+input[type=radio]{width:auto;margin:0 .6rem 0 0}
+label{font-weight:500;font-size:.9rem}
+.mut{color:var(--mut);font-size:.9rem}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--ln);border-radius:99px;padding:.05rem .6rem;font-size:.78rem;color:var(--mut)}
+.bar{height:9px;background:var(--ln);border-radius:9px;overflow:hidden;margin:.5rem 0}
+.bar i{display:block;height:100%;background:var(--ac2)}
+.hero{padding:2.5rem 0 1.5rem}
+.hero em{color:var(--ac);font-style:normal}
+.opt{display:flex;align-items:center;padding:.55rem .7rem;border:1px solid var(--ln);border-radius:10px;margin:.4rem 0;font-weight:400;cursor:pointer}
+.opt.ok{background:var(--ok)}.opt.bad{background:var(--bad)}
+.ex{font-size:.9rem;color:var(--mut);margin:.4rem 0 0}
+.lay{display:grid;grid-template-columns:260px 1fr;gap:1rem}
+@media(max-width:720px){.lay{grid-template-columns:1fr}}
+.les{display:block;padding:.45rem .6rem;border-radius:8px;cursor:pointer;font-size:.92rem}
+.les:hover,.les.on{background:var(--bg)}
+.fc{perspective:800px;cursor:pointer;min-height:130px}
+.fc div{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:1rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center}
+.fc .b{display:none;background:var(--ac2);color:#fff}
+.fc.f .b{display:flex}.fc.f .a{display:none}
+.cert{border:6px double var(--ac);text-align:center;padding:2rem 1rem;background:var(--card);border-radius:6px}
+.err{color:#dc2626;font-size:.9rem}
+#toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:10px;display:none;z-index:9;max-width:90%}
+footer{text-align:center;color:var(--mut);font-size:.85rem;padding:1.5rem}
+</style>
+</head>
+<body>
+<header><h2 class="logo" onclick="go('home')">ARPIARES <span>Learning</span></h2><nav id="nav"></nav></header>
+<main id="app"></main>
+<footer>ARPIARES Learning · Learn it. Quiz it. Own it.</footer>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const H=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const L=(t,x)=>({t,x});
+const Q=(q,options,answer,explanation,topic)=>({q,options,answer,explanation,topic});
+const SEED=[
+{id:"c1",title:"Web Development Foundations",by:"Dr. Aanya Rao",desc:"HTML, CSS and JavaScript from zero to your first interactive page.",
+ secs:[{n:"Structure and style",ls:[L("What is HTML?","HTML (HyperText Markup Language) describes the structure of a web page using elements such as headings, paragraphs and links. Browsers read HTML and build the page you see."),L("Styling with CSS","CSS (Cascading Style Sheets) controls colours, fonts and layout. A rule has a selector and declarations, for example making every heading blue.")]},
+ {n:"Behaviour",ls:[L("JavaScript basics","JavaScript adds behaviour to a page. Variables store values, functions group reusable steps, and events such as clicks trigger your code."),L("The DOM","The Document Object Model is a tree of objects that represents the page. JavaScript can read and change the DOM to update content without reloading.")]}],
+ quiz:[Q("What does CSS control?",["Page structure","Colours, fonts and layout","Database queries","Server routing"],1,"CSS controls presentation.","CSS"),Q("What does HTML describe?",["Page structure","Animations only","Server logic","Encryption"],0,"HTML gives a page its structure.","HTML"),Q("The DOM is best described as…",["A database","A tree representing the page","A CSS file","A browser plug-in"],1,"JavaScript reads and edits this tree.","JavaScript")]},
+{id:"c2",title:"Data Structures Basics",by:"Prof. Vikram Sen",desc:"Arrays, stacks and queues explained with everyday examples.",
+ secs:[{n:"Linear structures",ls:[L("Arrays","An array stores items in contiguous memory so any element can be reached by its index in constant time. Inserting in the middle is slow because items must shift."),L("Stacks and queues","A stack is last in, first out, like a pile of plates. A queue is first in, first out, like a line at a ticket counter.")]}],
+ quiz:[Q("Which structure is last in, first out?",["Queue","Stack","Array","Tree"],1,"A stack removes the newest item first.","Stacks"),Q("Why is inserting in the middle of an array slow?",["Items must shift","Indexes vanish","It needs a network call","Memory is full"],0,"Elements after the insert point move over.","Arrays")]},
+{id:"c3",title:"Smart Study Skills",by:"Meera Kapoor",desc:"Evidence-based habits: active recall and spaced repetition.",
+ secs:[{n:"Remember more",ls:[L("Active recall","Active recall means testing yourself instead of rereading. Trying to retrieve an answer strengthens memory far more than passive review."),L("Spaced repetition","Spaced repetition reviews material at growing intervals. Cards you miss return soon, while cards you know return after longer gaps.")]}],
+ quiz:[Q("Which habit strengthens memory most?",["Rereading","Highlighting","Testing yourself","Copying notes"],2,"Retrieval practice beats passive review.","Recall"),Q("In spaced repetition, missed cards return…",["Never","Sooner","After a year","Randomly"],1,"Missed cards get short intervals.","Spacing")]}];
+let S=null;try{S=JSON.parse(localStorage.getItem("arp1"))}catch(e){}
+if(!S)S={users:[],me:null,courses:SEED,prog:{},hist:[],cards:[]};
+const save=()=>{try{localStorage.setItem("arp1",JSON.stringify(S))}catch(e){}};
+const V={p:"home"};
+const me=()=>S.users.find(u=>u.id===S.me);
+const getC=id=>S.courses.find(c=>c.id===id);
+const flat=c=>c.secs.flatMap(s=>s.ls);
+const key=id=>S.me+":"+id;
+const pr=id=>S.prog[key(id)];
+const pct=c=>{const p=pr(c.id);return p?Math.round(p.d.length/flat(c).length*100):0};
+const done=c=>{const p=pr(c.id);return p&&p.d.length===flat(c).length&&c.quiz.length&&(p.best||0)>=60};
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,"0")).join("");
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",3200)}
+function go(p,o={}){if(["studio","dash","review","learn","quiz","cert"].includes(p)&&!me()){V.back=p;p="auth"}Object.assign(V,{p,q:null,err:null},o);render();scrollTo(0,0)}
+function nav(u){const a=(p,t)=>`<a class="${V.p===p?"on":""}" onclick="go('${p}')">${t}</a>`;return a("courses","Courses")+a("studio","AI Studio")+a("dash","Dashboard")+(u?`<a onclick="logout()">Log out (${H(u.name.split(" ")[0])})</a>`:`<a class="on" onclick="go('auth')">Log in</a>`)}
+function render(){$("#nav").innerHTML=nav(me());$("#app").innerHTML=({home,courses,course,learn,quiz,cert,studio,review,dash,auth})[V.p](me())}
+const bar=n=>`<div class="bar"><i style="width:${n}%"></i></div>`;
+
+/* ---------- pages ---------- */
+function home(){return `<section class="hero"><span class="tag">Learning Management System + AI Study Tools</span><h1>Learn it. Quiz it. <em>Own it.</em></h1>
+<p class="mut" style="max-width:560px">Take structured courses lesson by lesson, then turn any notes into AI-made quizzes and flashcards that come back right when you’re about to forget them.</p>
+<button class="btn" onclick="go('courses')">Browse courses</button><button class="btn alt" onclick="go('studio')">Try the AI Studio</button></section>
+<div class="grid"><div class="card"><h3>Courses that track you</h3><p class="mut">Sections, lessons, a progress bar and an auto-graded final quiz.</p></div>
+<div class="card"><h3>AI quiz generator</h3><p class="mut">Paste notes or a topic. Get multiple-choice questions with explanations, checked against your notes.</p></div>
+<div class="card"><h3>Spaced repetition</h3><p class="mut">Wrong answers become flashcards that return at growing intervals.</p></div>
+<div class="card"><h3>Certificates</h3><p class="mut">Finish every lesson and pass the final quiz to download your certificate.</p></div></div>
+<p class="mut">${S.courses.length} courses · ${S.users.length} learners on this device</p>`}
+
+function courses(){return `<h1>Courses</h1><div class="grid">${S.courses.map(c=>`<div class="card"><h3>${H(c.title)}</h3><p class="mut">${H(c.desc)}</p><span class="tag">${H(c.by)}</span> <span class="tag">${flat(c).length} lessons</span>${me()&&pr(c.id)?bar(pct(c))+`<span class="mut">${pct(c)}% complete</span><br>`:""}<br><button class="btn" onclick="go('course',{id:'${c.id}'})">${me()&&pr(c.id)?"Continue":"View course"}</button></div>`).join("")}</div>`}
+
+function course(u){const c=getC(V.id),p=u&&pr(c.id);let n=0;
+return `<button class="btn alt" onclick="go('courses')">← All courses</button><h1>${H(c.title)}</h1><p class="mut">${H(c.desc)} · by ${H(c.by)}</p>
+${p?bar(pct(c))+`<p class="mut">${pct(c)}% complete${p.best!=null?` · best quiz score ${p.best}%`:""}</p>`:""}
+<div style="margin:.5rem 0 1rem">${p?`<button class="btn" onclick="go('learn',{id:'${c.id}',i:${Math.max(0,flat(c).findIndex((_,i)=>!p.d.includes(i)))}})">Continue learning</button>`:`<button class="btn" onclick="enrol('${c.id}')">Enrol for free</button>`}
+${p&&c.quiz.length?`<button class="btn g" onclick="courseQuiz('${c.id}')">Final quiz</button>`:""}
+${p&&!c.quiz.length&&u.role==="instructor"?`<button class="btn g" onclick="aiCourseQuiz('${c.id}')" ${V.busy?"disabled":""}>${V.busy?"Generating…":"Generate final quiz with AI"}</button>`:""}
+${p&&done(c)?`<button class="btn" onclick="go('cert',{id:'${c.id}'})">Get certificate</button>`:""}</div>
+${c.secs.map(s=>`<div class="card"><h3>${H(s.n)}</h3>${s.ls.map(l=>`<div>${p&&p.d.includes(n)?"✓":"○"} ${H(l.t)}${(n++,"")}</div>`).join("")}</div>`).join("")}`}
+
+function learn(u){const c=getC(V.id),ls=flat(c),i=V.i||0,l=ls[i],p=pr(c.id);if(!p){return `<p>Please enrol first.</p><button class="btn" onclick="go('course',{id:'${c.id}'})">Back</button>`}
+let n=0;return `<button class="btn alt" onclick="go('course',{id:'${c.id}'})">← ${H(c.title)}</button>${bar(pct(c))}
+<div class="lay"><div class="card">${c.secs.map(s=>`<b class="mut">${H(s.n)}</b>${s.ls.map(x=>{const k=n++;return `<a class="les ${k===i?"on":""}" onclick="go('learn',{id:'${c.id}',i:${k}})">${p.d.includes(k)?"✓":"○"} ${H(x.t)}</a>`}).join("")}`).join("")}</div>
+<div class="card"><h2>${H(l.t)}</h2><p>${H(l.x)}</p>
+<button class="btn ${p.d.includes(i)?"alt":""}" onclick="tick('${c.id}',${i})">${p.d.includes(i)?"Completed ✓ (undo)":"Mark complete"}</button>
+${i<ls.length-1?`<button class="btn alt" onclick="go('learn',{id:'${c.id}',i:${i+1}})">Next lesson →</button>`:`<button class="btn g" onclick="courseQuiz('${c.id}')">Take final quiz</button>`}</div></div>`}
+
+function quizHTML(){const q=V.q;let r="";if(q.sub){const w=q.qs.filter((x,i)=>q.a[i]!==x.answer).length;r=`<div class="card"><h2>Score: ${q.qs.length-w}/${q.qs.length} (${q.pct}%)</h2><p class="mut">${w?`${w} to review below${q.ctx==="studio"?" — they were added to your flashcard deck for spaced review":""}.`:"Perfect score!"}</p></div>`}
+return r+q.qs.map((x,i)=>`<div class="card"><b>${i+1}. ${H(x.q)}</b>${x.options.map((o,j)=>`<label class="opt ${q.sub?(j===x.answer?"ok":q.a[i]===j?"bad":""):""}"><input type="radio" name="q${i}" ${q.a[i]===j?"checked":""} ${q.sub?"disabled":""} onchange="V.q.a[${i}]=${j}">${H(o)}</label>`).join("")}${q.sub?`<p class="ex">${q.a[i]===x.answer?"✓ Correct. ":"✗ "}${H(x.explanation||"")}</p>`:""}</div>`).join("")+(q.sub?"":`<button class="btn" onclick="subQ()">Submit answers</button>`)}
+
+function quiz(){const c=getC(V.id);return `<button class="btn alt" onclick="go('course',{id:'${c.id}'})">← ${H(c.title)}</button><h1>Final quiz</h1><p class="mut">Pass mark: 60%. Automatically graded.</p>${quizHTML()}${V.q.sub&&V.q.pct>=60&&done(c)?`<button class="btn" onclick="go('cert',{id:'${c.id}'})">Get your certificate</button>`:""}`}
+
+const certHTML=(n,t,d)=>`<!DOCTYPE html><html><body style="font-family:Georgia,serif;text-align:center;padding:60px;border:10px double #c2410c;margin:20px"><h3 style="color:#c2410c">ARPIARES Learning</h3><h1>Certificate of Completion</h1><p>This certifies that</p><h2>${H(n)}</h2><p>has completed all lessons and passed the final quiz of</p><h2>${H(t)}</h2><p>${H(d)}</p></body></html>`;
+function cert(u){const c=getC(V.id);if(!done(c))return `<p>Finish all lessons and pass the final quiz to unlock this certificate.</p><button class="btn" onclick="go('course',{id:'${c.id}'})">Back to course</button>`;
+const d=new Date().toLocaleDateString(undefined,{dateStyle:"long"});return `<h1>Congratulations!</h1><div class="cert"><h3 style="color:var(--ac)">ARPIARES Learning</h3><h2>Certificate of Completion</h2><p>This certifies that</p><h2>${H(u.name)}</h2><p>has completed all lessons and passed the final quiz of</p><h2>${H(c.title)}</h2><p class="mut">${d}</p></div><br><button class="btn" onclick="dl('${c.id}')">Download certificate</button><button class="btn alt" onclick="go('dash')">Dashboard</button>`}
+
+function studio(){if(V.q)return `<button class="btn alt" onclick="V.q=null;render()">← Back to studio</button><h1>${H(V.set.title)} quiz</h1>${quizHTML()}`;
+const s=V.set;return `<h1>AI Studio</h1><p class="mut">Paste notes, upload a .txt file, or type a topic. Questions are checked against your notes before you see them.</p>
+<div class="card"><label>Title</label><input id="st" value="${H(V.title||"")}" oninput="V.title=this.value" placeholder="e.g. Photosynthesis">
+<label>Notes or topic</label><textarea id="sn" rows="8" oninput="V.notes=this.value" placeholder="Paste your notes here…">${H(V.notes||"")}</textarea>
+<label>Upload notes (.txt / .md)</label><input type="file" accept=".txt,.md" onchange="upl(this)">
+<label>Number of questions</label><select id="sc" onchange="V.cnt=this.value">${[5,8,10].map(n=>`<option ${V.cnt==n?"selected":""}>${n}</option>`).join("")}</select>
+<button class="btn" onclick="genStudio()" ${V.busy?"disabled":""}>${V.busy?"Generating…":"Generate quiz and flashcards"}</button></div>
+${s?`<div class="card"><h2>${H(s.title)}</h2><p class="mut">${s.mcq.length} questions · ${s.fc.length} flashcards${s.drop?` · ${s.drop} unverifiable question(s) removed`:""}${s.local?" · built offline (AI unavailable)":""}</p>
+<button class="btn" onclick="studioQuiz()" ${s.mcq.length?"":"disabled"}>Take the quiz</button><button class="btn alt" onclick="go('review')">Study my deck</button></div>
+<h3>Flashcards <span class="mut">(tap to flip · saved to your deck)</span></h3><div class="grid">${s.fc.map(f=>`<div class="fc" onclick="this.classList.toggle('f')"><div class="a">${H(f.front)}</div><div class="b">${H(f.back)}</div></div>`).join("")}</div>`:""}`}
+
+function review(u){const now=Date.now(),due=S.cards.filter(c=>c.uid===u.id&&c.due<=now);
+if(!due.length)return `<h1>Flashcard review</h1><div class="card"><p>🎉 Nothing due right now. Generate more cards in the AI Studio, or come back later.</p><button class="btn" onclick="go('studio')">AI Studio</button></div>`;
+const c=due[0];return `<h1>Flashcard review</h1><p class="mut">${due.length} due · box ${c.box+1} of 5</p><div class="fc ${V.show?"f":""}" onclick="V.show=1;render()"><div class="a">${H(c.front)}</div><div class="b">${H(c.back)}</div></div><br>
+${V.show?`<button class="btn alt" onclick="rate(0)">Again</button><button class="btn g" onclick="rate(1)">Got it</button>`:`<button class="btn" onclick="V.show=1;render()">Show answer</button>`}`}
+
+function dash(u){const mine=S.courses.filter(c=>pr(c.id)),h=S.hist.filter(x=>x.uid===u.id),due=S.cards.filter(c=>c.uid===u.id&&c.due<=Date.now()).length,w={};
+h.forEach(x=>x.weak.forEach(t=>w[t]=(w[t]||0)+1));const weak=Object.entries(w).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0]);
+return `<h1>Hi ${H(u.name.split(" ")[0])} 👋</h1><span class="tag">${u.role}</span>
+<div class="grid" style="margin-top:1rem"><div class="card"><h3>My courses</h3>${mine.length?mine.map(c=>`<div><a style="cursor:pointer;color:var(--ac)" onclick="go('course',{id:'${c.id}'})">${H(c.title)}</a>${bar(pct(c))}</div>`).join(""):`<p class="mut">Not enrolled yet.</p>`}</div>
+<div class="card"><h3>Spaced repetition</h3><p>${due} card${due===1?"":"s"} due</p><button class="btn" onclick="go('review')">Study now</button>${weak.length?`<p class="mut">Weak topics: ${weak.map(H).join(", ")}</p>`:""}</div>
+<div class="card"><h3>Quiz history</h3>${h.length?h.slice(0,5).map(x=>`<div>${H(x.t)} — <b>${x.s}/${x.n}</b> <span class="mut">${new Date(x.d).toLocaleDateString()}</span></div>`).join(""):`<p class="mut">No AI quizzes taken yet.</p>`}</div></div>
+${u.role==="instructor"?`<h2>Instructor: create a course</h2><div class="card"><label>Title</label><input id="ct"><label>Description</label><input id="cd">
+<label>Content — use “# Section name” lines, then “Lesson title | lesson text” lines</label><textarea id="cx" rows="7" placeholder="# Basics&#10;What is a variable? | A variable stores a value…&#10;Loops | A loop repeats steps…"></textarea>
+<button class="btn" onclick="mkCourse()">Publish course</button><p class="err">${H(V.err||"")}</p><p class="mut">Add a final quiz afterwards with one click on the course page.</p></div>
+<h3>My published courses</h3>${S.courses.filter(c=>c.by===u.name).map(c=>`<div class="card">${H(c.title)} — ${Object.keys(S.prog).filter(k=>k.endsWith(":"+c.id)).length} enrolled</div>`).join("")||`<p class="mut">None yet.</p>`}`:""}`}
+
+function auth(){const s=V.mode==="signup";return `<div class="card" style="max-width:420px;margin:1rem auto"><h2>${s?"Create your account":"Welcome back"}</h2>
+${s?`<label>Full name</label><input id="an"><label>I am a…</label><select id="ar"><option value="student">Student</option><option value="instructor">Instructor</option></select>`:""}
+<label>Email</label><input id="ae" type="email"><label>Password (6+ characters)</label><input id="ap" type="password">
+<p class="err">${H(V.err||"")}</p><button class="btn" onclick="doAuth()">${s?"Sign up":"Log in"}</button>
+<p class="mut">${s?"Have an account?":"New here?"} <a style="cursor:pointer;color:var(--ac)" onclick="V.mode='${s?"login":"signup"}';V.err=null;render()">${s?"Log in":"Sign up"}</a></p>
+<p class="mut" style="font-size:.8rem">Demo build: accounts and progress are stored in this browser only.</p></div>`}
+
+/* ---------- actions ---------- */
+async function doAuth(){const g=i=>($("#"+i)||{}).value||"",e=g("ae").trim().toLowerCase(),p=g("ap");
+if(!/^\S+@\S+\.\S+$/.test(e))return V.err="Enter a valid email.",render();if(p.length<6)return V.err="Password needs 6+ characters.",render();
+const h=await sha(e+p);if(V.mode==="signup"){const n=g("an").trim();if(!n)return V.err="Please enter your name.",render();if(S.users.some(u=>u.email===e))return V.err="That email is already registered.",render();
+const u={id:"u"+Date.now(),name:n,email:e,hash:h,role:g("ar")};S.users.push(u);S.me=u.id}else{const u=S.users.find(u=>u.email===e&&u.hash===h);if(!u)return V.err="Wrong email or password.",render();S.me=u.id}
+save();const b=V.back||"dash";V.back=null;go(b)}
+function logout(){S.me=null;save();go("home")}
+function enrol(id){if(!me())return go("auth",{back:"courses"});S.prog[key(id)]={d:[],best:null};save();toast("Enrolled! Happy learning.");go("learn",{id,i:0})}
+function tick(id,i){const p=pr(id),k=p.d.indexOf(i);k<0?p.d.push(i):p.d.splice(k,1);save();render()}
+function courseQuiz(id){const c=getC(id);if(!c.quiz.length)return toast("This course has no final quiz yet.");go("quiz",{id,q:{qs:c.quiz,a:[],sub:false,ctx:"course"}})}
+function subQ(){const q=V.q,n=q.qs.length;let ok=0;q.qs.forEach((x,i)=>{if(q.a[i]===x.answer)ok++});q.sub=true;q.pct=Math.round(ok/n*100);
+if(q.ctx==="course"){const p=pr(V.id);p.best=Math.max(p.best||0,q.pct)}else{const wrong=q.qs.filter((x,i)=>q.a[i]!==x.answer);
+S.hist.unshift({uid:S.me,t:V.set.title,s:ok,n,d:Date.now(),weak:[...new Set(wrong.map(x=>x.topic||"General"))]});
+wrong.forEach(x=>{const f=x.q,b=x.options[x.answer]+" — "+(x.explanation||"");if(!S.cards.some(c=>c.uid===S.me&&c.front===f))S.cards.push({uid:S.me,front:f,back:b,topic:x.topic,box:0,due:Date.now()})})}
+save();render();scrollTo(0,0)}
+function rate(g){const c=S.cards.filter(c=>c.uid===S.me&&c.due<=Date.now())[0],iv=[0,1,3,7,16];c.box=g?Math.min(4,c.box+1):0;c.due=Date.now()+(g?iv[c.box]*864e5:0);if(!g)c.due=Date.now()+6e4;V.show=0;save();render()}
+function mkCourse(){const g=i=>$("#"+i).value.trim(),t=g("ct"),d=g("cd"),secs=[];let cur=null;
+g("cx").split("\n").forEach(l=>{l=l.trim();if(!l)return;if(l.startsWith("#")){cur={n:l.replace(/^#+\s*/,""),ls:[]};secs.push(cur)}else{const [a,...b]=l.split("|");if(!cur){cur={n:"Lessons",ls:[]};secs.push(cur)}cur.ls.push(L(a.trim(),b.join("|").trim()||a.trim()))}});
+if(!t||!secs.some(s=>s.ls.length))return V.err="Add a title and at least one lesson.",render();
+S.courses.push({id:"c"+Date.now(),title:t,by:me().name,desc:d||"A new course.",secs,quiz:[]});save();toast("Course published!");go("courses")}
+function dl(id){const c=getC(id),h=certHTML(me().name,c.title,new Date().toLocaleDateString(undefined,{dateStyle:"long"}));
+claude.use("downloads").then(d=>{if(!d)return toast("Downloads unavailable here — screenshot the certificate instead.");return d.save({filename:"ARPIARES-certificate.html",data:h}).catch(()=>toast("Download cancelled."))}).catch(()=>toast("Downloads unavailable here."))}
+function upl(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{V.notes=String(r.result).slice(0,12000);if(!V.title)V.title=f.name.replace(/\.\w+$/,"");render()};r.readAsText(f)}
+
+/* ---------- AI generation ---------- */
+const ov=(e,tl)=>{const w=String(e).toLowerCase().match(/\w{4,}/g)||[];return w.length?w.filter(x=>tl.includes(x)).length/w.length:1};
+function clean(r,t,topicMode){const tl=t.toLowerCase(),all=(r.mcq||[]).filter(m=>m&&m.q);
+const mcq=all.filter(m=>Array.isArray(m.options)&&m.options.length===4&&Number.isInteger(m.answer)&&m.answer>=0&&m.answer<4&&(topicMode||!m.evidence||ov(m.evidence,tl)>=.6));
+return{mcq,fc:(r.flashcards||[]).filter(f=>f&&f.front&&f.back),drop:all.length-mcq.length}}
+function local(t,n){const s=t.split(/(?<=[.!?])\s+/).filter(x=>x.length>40),w=[...new Set(t.match(/\b[A-Za-z]{6,}\b/g)||[])],mcq=[],fc=[];
+s.forEach(x=>{if(mcq.length>=n)return;const k=(x.match(/\b[A-Za-z]{6,}\b/g)||[]).sort((a,b)=>b.length-a.length)[0];if(!k)return;
+const d=w.filter(y=>y.toLowerCase()!==k.toLowerCase()).sort(()=>Math.random()-.5).slice(0,3);if(d.length<3)return;
+const o=[k,...d].sort(()=>Math.random()-.5),q=x.replace(k,"_____");mcq.push({q:"Fill the blank: "+q,options:o,answer:o.indexOf(k),explanation:"From your notes: "+x,topic:"Notes"});fc.push({front:q,back:k,topic:"Notes"})});
+return{mcq,fc,drop:0,local:true}}
+async function gen(text,n){const topicMode=text.length<200;let sm=null;try{sm=await claude.use("sample")}catch(e){}
+if(sm){try{const p=`You are a study-tool engine. ${topicMode?"The input is a topic; use reliable general knowledge.":"Use ONLY the notes below."} Create ${n} multiple-choice questions (exactly 4 options, exactly one correct, answer = 0-based index) and ${Math.min(n,8)} flashcards. Each question needs a short "explanation", a one-or-two-word "topic", and "evidence": a short phrase copied from the notes that supports the answer${topicMode?" (may be empty)":""}. Return JSON only, no markdown: {"mcq":[{"q":"","options":["","","",""],"answer":0,"explanation":"","topic":"","evidence":""}],"flashcards":[{"front":"","back":"","topic":""}]}\n\nINPUT:\n${text.slice(0,8000)}`;
+const r=await sm.json(p);const c=clean(r,text,topicMode);if(c.mcq.length)return c}catch(e){}}
+return local(text,n)}
+async function genStudio(){const t=(V.notes||"").trim();if(t.length<15)return toast("Add some notes or a topic first.");V.busy=1;render();
+const r=await gen(t,+V.cnt||5);V.busy=0;V.set={title:(V.title||"").trim()||t.slice(0,32),...r};
+r.fc.forEach(f=>{if(!S.cards.some(c=>c.uid===S.me&&c.front===f.front))S.cards.push({uid:S.me,front:f.front,back:f.back,topic:f.topic,box:0,due:Date.now()})});save();
+if(!r.mcq.length)toast("Couldn’t build questions — try longer notes.");render()}
+function studioQuiz(){V.q={qs:V.set.mcq,a:[],sub:false,ctx:"studio"};render();scrollTo(0,0)}
+async function aiCourseQuiz(id){const c=getC(id);V.busy=1;render();const r=await gen(flat(c).map(l=>l.t+". "+l.x).join("\n"),5);V.busy=0;c.quiz=r.mcq;save();toast(r.mcq.length?"Final quiz added!":"Couldn’t generate a quiz.");render()}
+render();
+</script>
+</body>
+</html>
